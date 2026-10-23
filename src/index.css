@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Manrope', system-ui, sans-serif;
+    color: #292D29;
+    background-color: #F6F2E9;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #DFA900;
+  }
+  .eyebrow-light {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #A5B39A;
+  }
+  .container-lux {
+    max-width: 88rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .container-lux {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+  @media (min-width: 1440px) {
+    .container-lux {
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2.5rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #F6F2E9;
+    background-color: #263D30;
+    border: 1px solid #263D30;
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background-color: #DFA900;
+    border-color: #DFA900;
+    color: #292D29;
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2.5rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #263D30;
+    border: 1px solid #263D30;
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+  .btn-outline:hover {
+    background-color: #263D30;
+    color: #F6F2E9;
+  }
+  .btn-outline-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2.5rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #F6F2E9;
+    border: 1px solid rgba(246, 242, 233, 0.5);
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+  .btn-outline-light:hover {
+    border-color: #DFA900;
+    color: #DFA900;
+  }
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2.5rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #292D29;
+    background-color: #DFA900;
+    border: 1px solid #DFA900;
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+  .btn-gold:hover {
+    background-color: transparent;
+    color: #DFA900;
+    border-color: #DFA900;
+  }
+  .text-link {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #263D30;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+  }
+  .text-link:hover {
+    color: #DFA900;
+  }
+  .text-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #DFA900;
+    transition: width 0.4s ease;
+  }
+  .text-link:hover::after {
+    width: 100%;
+  }
+  .gold-divider {
+    width: 60px;
+    height: 1px;
+    background-color: #DFA900;
+    display: inline-block;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .clip-reveal {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .clip-reveal.is-visible {
+    clip-path: inset(0 0 0 0);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
