@@ -8,6 +8,7 @@ interface PageHeroProps {
   title: string;
   subtitle?: string;
   breadcrumbs?: Crumb[];
+  align?: 'left' | 'center'; // <-- Added align prop
 }
 
 export default function PageHero({
@@ -16,12 +17,19 @@ export default function PageHero({
   title,
   subtitle,
   breadcrumbs,
+  align = 'center', // Defaults to center to preserve existing pages
 }: PageHeroProps) {
   return (
     <section className="relative h-[55vh] min-h-[420px] md:h-[60vh] flex items-end overflow-hidden">
       <Parallax src={image} alt={title} className="absolute inset-0" speed={0.15} priority />
       <div className="absolute inset-0 bg-gradient-to-t from-forest-800/80 via-forest-800/30 to-forest-800/20" />
-      <div className="relative container-lux pb-12 md:pb-16">
+      
+      {/* Added dynamic alignment classes here */}
+      <div
+        className={`relative container-lux pb-12 md:pb-16 flex flex-col w-full ${
+          align === 'left' ? 'items-start text-left' : 'items-center text-center'
+        }`}
+      >
         {breadcrumbs && (
           <div className="mb-4">
             <Breadcrumbs items={breadcrumbs} />
