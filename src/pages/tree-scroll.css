@@ -1,0 +1,104 @@
+/* ============================================================
+   Scroll-driven "tree growth" reveal
+   Reveal the image from the bottom up as the user scrolls.
+   Falls back gracefully on browsers without scroll timelines.
+   ============================================================ */
+
+.tree-scroll-wrap {
+  position: relative;
+}
+
+.tree-scroll-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  /* Named scroll timeline — starts when frame enters viewport */
+  view-timeline-name: --tree-grow;
+  view-timeline-axis: block;
+  /* Fallback shadow so the frame still feels grounded */
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.15);
+}
+
+.tree-scroll-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: clip-path, transform;
+  transform-origin: 50% 100%;
+}
+
+/* Subtle vignette to give the reveal a soft bottom edge */
+.tree-scroll-vignette {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 25%;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(20, 30, 25, 0.28),
+    rgba(20, 30, 25, 0)
+  );
+  opacity: 0.9;
+}
+
+/* ---------- Modern browsers with scroll timelines ---------- */
+@supports (animation-timeline: view()) {
+  .tree-scroll-img {
+    /* Start fully clipped from the bottom (i.e. hidden) */
+    clip-path: inset(100% 0 0 0);
+    animation: tree-grow-reveal linear both;
+    animation-timeline: --tree-grow;
+    /* Start when the frame is 20% into the viewport,
+       finish by the time it reaches the middle of the viewport */
+    animation-range: entry 20% cover 55%;
+  }
+
+  @keyframes tree-grow-reveal {
+    from {
+      clip-path: inset(100% 0 0 0);
+      transform: scale(1.04);
+    }
+    60% {
+      /* slight overshoot-free ease so it feels organic */
+      clip-path: inset(30% 0 0 0);
+    }
+    to {
+      clip-path: inset(0% 0 0 0);
+      transform: scale(1);
+    }
+  }
+
+  /* Vignette fades in as the tree finishes growing */
+  .tree-scroll-vignette {
+    opacity: 0;
+    animation: vignette-fade linear both;
+    animation-timeline: --tree-grow;
+    animation-range: cover 40% cover 80%;
+  }
+
+  @keyframes vignette-fade {
+    to {
+      opacity: 0.9;
+    }
+  }
+}
+
+/* ---------- Fallback for older browsers ---------- */
+@supports not (animation-timeline: view()) {
+  .tree-scroll-img {
+    clip-path: none;
+    transform: none;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .tree-scroll-img,
+  .tree-scroll-vignette {
+    animation: none !important;
+    clip-path: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
