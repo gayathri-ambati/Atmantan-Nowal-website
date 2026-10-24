@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ElementType, type ReactNode } from 'react';
 
 interface RevealProps {
   children: ReactNode;
@@ -32,11 +32,11 @@ export default function Reveal({
     return () => observer.disconnect();
   }, []);
 
-  const Tag = as as keyof JSX.IntrinsicElements;
+  const Tag = as as ElementType;
 
   return (
     <Tag
-      ref={ref as React.Ref<keyof JSX.IntrinsicElements>}
+      ref={ref}
       className={className}
       style={{
         opacity: visible ? 1 : 0,
